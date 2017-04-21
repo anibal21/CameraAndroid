@@ -59,7 +59,6 @@ public class DoFileUpload extends AsyncTask<RequestPackage, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("paraaams culiao", String.valueOf(params[0]));
         String content = MyHttpURLConnection.getData(params[0]);
         return content;
     }
@@ -72,8 +71,6 @@ public class DoFileUpload extends AsyncTask<RequestPackage, Void, String> {
         con.setRequestMethod("POST");
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-        // String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
 
         // Send post request
         con.setDoOutput(true);
@@ -94,7 +91,6 @@ public class DoFileUpload extends AsyncTask<RequestPackage, Void, String> {
         }
         in.close();
 
-        //print result
         return (response.toString());
     }
 
@@ -109,9 +105,7 @@ public class DoFileUpload extends AsyncTask<RequestPackage, Void, String> {
         //Envío de datos a siguiente activity
         Intent intent = new Intent(activity, BotonesActivity.class);
 
-        ((Activity) activity).finish(); //CASTING
-        //finish();
-
+        ((Activity) activity).finish();
         activity.startActivity(intent);
     }
 }

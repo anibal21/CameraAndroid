@@ -26,36 +26,17 @@ import autumn.dispatcherapp.UploadImage.RequestPackage;
 public class DoFileUpload extends AsyncTask<RequestPackage, Void, String> {
 
     private ProgressDialog pDialog;
-    public static final String SERVER_URL_REQUEST_FORMULARIO = "https://www.autumnideas.com/Dispatcher/sendData.php";
+    public static final String SERVER_URL_REQUEST_FORMULARIO = "https://www.url.cl";
     String fname;
-    String s_nombre_r,s_descripcion_r,s_cargo_r,s_rut_r,valor_c;
     Context activity;
 
     private final String USER_AGENT = "Mozilla/5.0";
     private final String rut;
-    private final String nombre;
-    private final String cargo;
-    private final String descripcion;
-    private final String n_guia;
-    private String id_orden_trabajo;
     private String json_decoded = "";
-    private String nombre_c;
-    private String direccion_c;
-    private String telefono_c;
-    private String hora_c;
 
-    public DoFileUpload(String s, String rut, String nombre, String cargo, String descripcion, String n_guia, String id_orden_trabajo, Context activity, String nombre_c, String direccion_c, String telefono_c, String hora_c) {
-        this.rut = rut;
-        this.nombre = nombre;
-        this.cargo = cargo;
-        this.descripcion = descripcion;
-        this.id_orden_trabajo = id_orden_trabajo;
-        this.n_guia = n_guia;
+
+    public DoFileUpload( Context activity) {
         this.activity = activity;
-        this.nombre_c = nombre_c;
-        this.direccion_c = direccion_c;
-        this.telefono_c = telefono_c;
-        this.hora_c = hora_c;
     }
 
 
@@ -74,9 +55,7 @@ public class DoFileUpload extends AsyncTask<RequestPackage, Void, String> {
         //Subida de datos
         try {
             //Cambiar php para agregar web service
-            this.json_decoded = POST(SERVER_URL_REQUEST_FORMULARIO, "rut="+this.rut+"&nombre="+this.nombre
-                    +"&cargo="+this.cargo+"&descripcion="+this.descripcion+"&id_orden="+this.id_orden_trabajo
-                    +"&image_url="+fname+"&n_guia="+this.n_guia);
+            this.json_decoded = POST(SERVER_URL_REQUEST_FORMULARIO, "rut="+this.rut);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,31 +103,11 @@ public class DoFileUpload extends AsyncTask<RequestPackage, Void, String> {
         if (pDialog.isShowing()) {
             pDialog.dismiss();
         }
-
-        EditText tipo_orden = (EditText) ((Activity) activity).findViewById(R.id.tipo);
-        EditText n_documento = (EditText) ((Activity) activity).findViewById(R.id.n_documento);
-        EditText id_cliente = (EditText) ((Activity) activity).findViewById(R.id.cliente);
-        EditText fecha = (EditText) ((Activity) activity).findViewById(R.id.fecha_hora);
+   
+        //EditText tipo_orden = (EditText) ((Activity) activity).findViewById(R.id.tipo);
 
         //Envío de datos a siguiente activity
         Intent intent = new Intent(activity, BotonesActivity.class);
-        intent.putExtra("nombre_recepcionista", s_nombre_r);
-        intent.putExtra("tipo_orden", tipo_orden.getText().toString());
-        intent.putExtra("rut_recepcionista", s_rut_r);
-        intent.putExtra("numero_documento", n_documento.getText().toString());
-        intent.putExtra("id_cliente", id_cliente.getText().toString());
-        intent.putExtra("fecha", fecha.getText().toString());
-        intent.putExtra("cargo_recepcionista", s_cargo_r);
-        intent.putExtra("descripcion_recepcionista", s_descripcion_r);
-        intent.putExtra("id_orden", id_orden_trabajo);
-
-
-        intent.putExtra("nombre_c", nombre_c);
-        intent.putExtra("direccion_c", direccion_c);
-        intent.putExtra("telefono_c", telefono_c);
-        intent.putExtra("valor",valor_c);
-        intent.putExtra("hora_c", hora_c);
-        intent.putExtra("descripcion",descripcion);
 
         ((Activity) activity).finish(); //CASTING
         //finish();
